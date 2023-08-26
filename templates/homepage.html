@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<body>
+    <form action="" meth>
+        <input type="text" name="search_product" />
+        <button id="search">Search</button> <!-- Changed input to button -->
+    </form>
+    <div class="">
+        <form method="POST" action="#">
+            <p><input type="text" required="" placeholder="username"></p>
+            <p><input type="password" required="" placeholder="password"></p>
+            <p><input type="submit" value="Submit"></p>
+        </form>
+        <p>Not yet registered? <a href="#">Sign Up</a></p>
+    </div>
+
+    <h1>Welcome to Comark App!</h1>
+    <p>This is the homepage of our Comark app.
+        Stay tuned for exciting updates and features.</p>
+    <script src="{{ url_for('static', filename='js/location.js') }}"></script> <!-- Include the JS script -->
+</body>
+</html>
