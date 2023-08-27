@@ -1,41 +1,54 @@
 from flask import (
     Flask, render_template, jsonify, request, flash, redirect, url_for
 )
+from user import user
 # from geopy.geocoders import Nominatim
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 import requests
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////Users/hp/Documents/Comark/Engine/comark.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///comark.db"
 app.config["SECRET_KEY"] = "random string"
-db = SQLAlchemy(app)
-# login_manager = LoginManager(app)
-# login_manager.init_app(app)
+db = SQLAlchemy()
+login_manager = LoginManager(app)
+login_manager.init_app(app)
+app.register_blueprint(user, url_prefix="/user")
 
 
-# class User(db.Model, UserMixin):
-#     __tablename__ = "User"
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String, unique=True)
-#     password = db.Column(db.String)
-#     name = db.Column(db.String)
-#     phone_number = db.Column(db.String)
-#     address = db.Column(db.String)
-#     location = db.Column(db.String)
-#     state = db.Column(db.String)
-#     country = db.Column(db.String)
+class User(db.Model, UserMixin):
+    __tablename__ = "users"
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    phone_number = db.Column(db.String, nullable=False)
+    address = db.Column(db.String, nullable=False)
+    location = db.Column(db.String, nullable=False)
+    state = db.Column(db.String, nullable=False)
+    country = db.Column(db.String)
 
 
-# class Product(db.Model, UserMixin):
-#     __tablename__ = "Product"
-#     id = db.Column(db.Integer, primary_key = True)
-#     product_name = db.Column(db.String)
-#     category = db.Column(db.String)
-#     price = db.Column(db.Float)
-#     description = db.Column(db.String)
-#     img_link = db.Column(db.String)
-#     user_id = db.Column(db.Integer, db.ForeignKey("User.id"))
+class Product(db.Model, UserMixin):
+    __tablename__ = "products"
+    product_id = db.Column(db.Integer, primary_key = True)
+    product_name = db.Column(db.String, nullable=False)
+    category = db.Column(db.String)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    img_link = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+
+
+# creates a user loader callback that returns the user object given an id
+@login_manager.user_loader
+def loader_user(user_id):
+    return User.query.get(user_id)
 
 
 # def get_coords():
@@ -61,29 +74,6 @@ def team():
     return render_template('team.html')
 
 
-@app.route('/user_page')
-def user_page():
-    return render_template('user.html')
-
-
-@app.route('/add_post', methods=['POST'])
-def add_post():
-    return redirect(url_for('user_page'))
-
-
-@app.route('/update', methods=['POST'])
-def update():
-    return redirect(url_for('user_page'))
-
-
-@app.route('/sign_up', methods=['POST', 'GET'])
-def sign_up():
-    return render_template('homepage.html')
-
-
-app.route('/user_page')
-def user_page():
-    return render_template('homepage.html')
 
 
 # @app.route('/login', methods=['POST'])
