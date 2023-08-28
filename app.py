@@ -4,7 +4,10 @@ from flask import (
 from user import user
 # from geopy.geocoders import Nominatim
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+from flask_login import (
+    LoginManager, UserMixin, login_user, login_required, logout_user
+)
+from flask_bcrypt import Bcrypt
 import requests
 
 app = Flask(__name__)
@@ -14,6 +17,8 @@ db = SQLAlchemy()
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 app.register_blueprint(user, url_prefix="/user")
+bcrypt = Bcrypt(app)
+
 
 
 class User(db.Model, UserMixin):
@@ -23,10 +28,13 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
     phone_number = db.Column(db.String, nullable=False)
-    address = db.Column(db.String, nullable=False)
+    address = db.Column(db.Text, nullable=False)
     location = db.Column(db.String, nullable=False)
     state = db.Column(db.String, nullable=False)
     country = db.Column(db.String)
+
+    def __repr__(self):
+        return f"Username: {self.username}, Name: {self.name}, Phone Number: {self.phone_number}"
 
 
 class Product(db.Model, UserMixin):
@@ -38,6 +46,9 @@ class Product(db.Model, UserMixin):
     description = db.Column(db.Text, nullable=False)
     img_link = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    def __repr__(self):
+        return f"The product name is {self.product_name}, and it costs {self.price}."
 
 
 db.init_app(app)
@@ -72,6 +83,37 @@ def about():
 @app.route('/team')
 def team():
     return render_template('team.html')
+
+
+@app.route('/sign_up')
+def sign_up():
+    return render_template('sign_up.html')
+
+
+@app.route('/register_user', methods=['POST'])
+def register_user():
+    if request.method == 'POST':
+        name = request.form['name']
+        username = request.form['username']
+        phone_number = request.form['phone_number']
+        address = request.form['home_address']
+        location = request.form['location']
+        state = request.form['state']
+        country = request.form['country']
+
+        password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+        
+        user = User(
+            username=username, password=password, name=name, 
+            phone_number=phone_number, address=address, location=location, 
+            state=state, country=country
+            )
+        
+        db.session.add(user)
+        db.session.commit()
+        flash(f"{username}, you have been registered!")
+        return redirect(url_for('index'))
+    return render_template('sign_up.html')
 
 
 

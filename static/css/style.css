@@ -1,5 +1,5 @@
 /**
-* Template Name: Moderna
+* Template Name: Comark
 * Updated: Jul 27 2023 with Bootstrap v5.3.1
 * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
 * Author: BootstrapMade.com
@@ -2314,4 +2314,24 @@ section {
 
 #footer .credits a {
   color: #a2cce3;
+}
+
+/*--------------------------------------------------------------
+# Search bar and user login section
+--------------------------------------------------------------*/
+.form-input {
+  width: auto;
+  border-radius: 10px;
+}
+
+.form-btn {
+  width: auto;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.form-btn:hover {
+  color: #2e6b9c;
+  background-color: white;
 }

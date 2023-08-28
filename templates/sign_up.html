@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+
+    <div>
+        <form action="{{url_for('register_user')}}" method="post">
+            <p>
+                <label for="name">Name: </label><tr>
+                <input type="text" name="name" placeholder="Name" required/>
+            </p>
+            <p>
+                <label for="username">Username: </label>
+                <input type="text" placeholder="Username" name="username" required />
+            </p>
+            <p>
+                <label for="password">Password: </label>
+                <input type="password" placeholder="Password" name="password" required/>
+            </p>
+            <p>
+                <label for="password">Confirm Password: </label>
+                <input type="password" placeholder="Confirm Password" required/>
+            </p>
+            <p>
+                <label for="phone_number">Phone Number: </label>
+                <input type="tel" placeholder="Phone Number" name="phone_number" required/>
+            </p>
+            <p>
+                <label for="address">Home Address: </label>
+                <textarea placeholder="Home Address" name="address" required></textarea>
+            </p>
+            <p>
+                <label for="location">Location: </label>
+                <input type="text" placeholder="Location" name="Location" required/>
+            </p>
+            <p>
+                <label for="state">State: </label>
+                <input type="text" placeholder="State" name="state"/>
+            </p>
+            <p>
+                <label for="country">Country: </label>
+                <input type="text" placeholder="Country" name="country"/>
+            </p>
+            <p>
+                <input type="submit" value="Register" />
+            </p>
+
+        </form>
+    </div>
+</body>
+</html>
