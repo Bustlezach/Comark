@@ -1,48 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-<body>
+{% extends "user_base.html" %}
 
+{% block content %}
+    <h3>Registration Form</Form></h3>
+    <hr />
     <div>
         <form action="{{url_for('register_user')}}" method="post">
             <p>
-                <label for="name">Name: </label><tr>
+                <label for="name">Name: </label><br />
                 <input type="text" name="name" placeholder="Name" required/>
             </p>
             <p>
-                <label for="username">Username: </label>
+                <label for="username">Username: </label><br />
                 <input type="text" placeholder="Username" name="username" required />
             </p>
             <p>
-                <label for="password">Password: </label>
+                <label for="password">Password: </label><br />
                 <input type="password" placeholder="Password" name="password" required/>
             </p>
             <p>
-                <label for="password">Confirm Password: </label>
+                <label for="password">Confirm Password: </label><br />
                 <input type="password" placeholder="Confirm Password" required/>
             </p>
             <p>
-                <label for="phone_number">Phone Number: </label>
+                <label for="phone_number">Phone Number: </label><br />
                 <input type="tel" placeholder="Phone Number" name="phone_number" required/>
             </p>
             <p>
-                <label for="address">Home Address: </label>
-                <textarea placeholder="Home Address" name="address" required></textarea>
+                <label for="address">Home Address: </label><br />
+                <input type="text" placeholder="Home Address" name="address" required/>
             </p>
             <p>
-                <label for="location">Location: </label>
+                <label for="location">Location: </label><br />
                 <input type="text" placeholder="Location" name="Location" required/>
             </p>
             <p>
-                <label for="state">State: </label>
+                <label for="state">State: </label><br />
                 <input type="text" placeholder="State" name="state"/>
             </p>
             <p>
-                <label for="country">Country: </label>
+                <label for="country">Country: </label><br />
                 <input type="text" placeholder="Country" name="country"/>
             </p>
             <p>
@@ -51,5 +47,7 @@
 
         </form>
     </div>
-</body>
-</html>
+
+{% endblock %}
+
+   
