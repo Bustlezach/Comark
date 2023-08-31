@@ -37,6 +37,9 @@ class User(db.Model, UserMixin):
 
     products = db.relationship('Product', backref='users ')
 
+    def get_id(self):
+        return str(self.user_id)  # Convert to string as required
+
     def __repr__(self):
         return f"Username: {self.username}, Name: {self.name}, Phone Number: {self.phone_number}"
 
@@ -54,6 +57,10 @@ class Product(db.Model, UserMixin):
     description = db.Column(db.Text, nullable=False)
     img_link = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+
+    def get_id(self):
+        return str(self.product_id_id)  # Convert to string as required
 
     def __repr__(self):
         return f"The product name is {self.product_name}, and it costs {self.price}."
@@ -80,7 +87,7 @@ def get_coords():
     KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
     url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},{long}&includeRoadMetadata=true&includeNearestIntersection=true'
     message = requests.get(url)
-    if (message.status_code is 200):
+    if (message.status_code == 200):
         res = message.json()
         results = res.get('results')
         city = results[0]['locations'][0]['adminArea5']
@@ -125,7 +132,7 @@ def register_user():
         name = request.form['name']
         username = request.form['username']
         phone_number = request.form['phone_number']
-        address = request.form['home_address']
+        address = request.form['address']
         location = request.form['location']
         state = request.form['state']
         country = request.form['country']
@@ -164,22 +171,20 @@ def register_user():
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        if not request.form['username'] \
-        or not request.form['password']:
+        if not request.form['username'] or \
+                not request.form['password']:
             flash("Fill in your username and password to login.")
         else:
-            user = User.query.filter_by(username=
-                request.form['username']
-            ).first()
-            if user and bcrypt.check_password_hash(
-                user.password, request.form['password']
-                ):
+            user = User.query.filter_by(username=request.form['username']).first()
+            if user and \
+                    bcrypt.check_password_hash(user.password, request.form['password']):
                 login_user(user)
                 flash(f"Welcome, {user.name}!")
-                return redirect(url_for('user_page', user_id=user.id))
+                return redirect(url_for('user_page', user_id=user.user_id))  # Use user.user_id
             else:
                 flash('Invalid username or password')
     return redirect(url_for('index'))
+
 
 
 @login_required
@@ -234,7 +239,7 @@ def update(product_id):
 
 @login_required
 @app.route('/user/delete/<product_id>')
-def delete_product(product_id):
+def delete(product_id):
     product = Product.query.filter_by(product_id=product_id).first()
     db.session.delete(product)
     db.session.commit()
@@ -243,7 +248,7 @@ def delete_product(product_id):
 
 
 @login_required
-@app.route('/user/logout/')
+@app.route('/user/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
