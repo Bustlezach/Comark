@@ -57,6 +57,7 @@ class Product(db.Model, UserMixin):
     description = db.Column(db.Text, nullable=False)
     img_link = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    username = db.Column(db.Integer, db.ForeignKey("users.username"))
 
 
     def get_id(self):
