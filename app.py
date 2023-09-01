@@ -50,14 +50,15 @@ class Product(db.Model, UserMixin):
     table in the database
     """
     __tablename__ = "products"
-    product_id = db.Column(db.Integer, primary_key = True)
-    product_name = db.Column(db.String, nullable=False)
-    category = db.Column(db.String)
-    price = db.Column(db.Float, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.String(255))
+    product_name = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(255))
+    price = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     img_link = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    username = db.Column(db.Integer, db.ForeignKey("users.username"))
+    user_id = db.Column(db.String(255), db.ForeignKey("users.user_id"))
+    username = db.Column(db.String(255), db.ForeignKey("users.username"))
 
 
     def get_id(self):
