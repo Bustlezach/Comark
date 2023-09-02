@@ -1,5 +1,5 @@
 /**
-* Template Name: Moderna
+* Template Name: Comark
 * Updated: Jul 27 2023 with Bootstrap v5.3.1
 * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
 * Author: BootstrapMade.com
