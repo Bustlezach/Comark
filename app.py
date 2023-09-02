@@ -9,6 +9,7 @@ from flask_login import (
 )
 from flask_bcrypt import Bcrypt
 import requests
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///comark.db"
