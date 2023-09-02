@@ -83,6 +83,8 @@ def loader_user(user_id):
     return User.query.get(user_id)
 
 
+
+"""Alternative for GEOLOCATION API"""
 def get_coords():
     client = Nominatim(user_agent="my_app")
     location = client.geocode("My current location")
@@ -106,6 +108,26 @@ def index():
     title = 'Homepage'
     products = Product.query.order_by(Product.id.desc()).all()
     return render_template('index.html', products=products, title=title)
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    data = request.json
+    lat = data.get('latitude')
+    long = data.get('longitude')
+    #    return lat, long  # Return both latitude and longitude
+    KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
+    url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},{long}&includeRoadMetadata=true&includeNearestIntersection=true'
+    message = requests.get(url)
+    city = ''
+    if (message.status_code == 200):
+        res = message.json()
+        results = res.get('results')
+        city = results[0]['locations'][0]['adminArea5']
+        return city
+    else:
+        pass
+    searched_product = request.form['search_item']
 
 
 @app.route('/about')
@@ -157,21 +179,6 @@ def register_user():
         return redirect(url_for('index'))
     return render_template('sign_up.html', title = 'Sign up')
 
-
-# @app.route('/receive_coordinates', methods=['POST'])
-# def receive_coordinates():
-#     if request.method == 'POST':
-#         res = request.get_json()
-#         lat = res.get('latitude')
-#         long = res.get('longitude')
-#         KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
-#         url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},{long}&includeRoadMetadata=true&includeNearestIntersection=true'
-#         message = requests.get(url)
-#         if (message.status_code is 200):
-#             res = message.json()
-#             results = res.get('results')
-#             city = results[0]['locations'][0]['adminArea5']
-#             return city
 
 
 @app.route('/login', methods=['POST'])
@@ -261,5 +268,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
+    # port = int(os.environ.get('PORT', 5000))
+    # app.run(host='0.0.0.0', port=port)

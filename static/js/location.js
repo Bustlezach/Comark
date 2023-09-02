@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to send latitude and longitude to the Flask app
     function sendToFlask(latitude, longitude) {
-        fetch("C:\\Users\\hp\\Desktop\\Comark\\static\\js\\location.js", {
+        fetch("/search", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
