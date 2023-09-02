@@ -35,7 +35,9 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String, nullable=False)
     country = db.Column(db.String)
 
-    products = db.relationship('Product', backref='users ')
+    products = db.relationship(
+        'Product', backref='user', lazy='dynamic', foreign_keys='Product.user_id'
+    )
 
     def get_id(self):
         return str(self.user_id)  # Convert to string as required
@@ -57,7 +59,7 @@ class Product(db.Model, UserMixin):
     price = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     img_link = db.Column(db.String)
-    user_id = db.Column(db.String(255), db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.String(255), db.ForeignKey("users.user_id"), primary_key=True)
     username = db.Column(db.String(255), db.ForeignKey("users.username"))
 
 
@@ -100,8 +102,9 @@ def get_coords():
 @app.route('/')
 def index():
     """The landing page route"""
-    products = Product.query.all()
-    return render_template('index.html', products=products)
+    title = 'Homepage'
+    products = Product.query.order_by(Product.id.desc()).all()
+    return render_template('index.html', products=products, title=title)
 
 
 @app.route('/about')
@@ -151,7 +154,7 @@ def register_user():
         db.session.commit()
         flash(f"{username}, you have been registered!")
         return redirect(url_for('index'))
-    return render_template('sign_up.html')
+    return render_template('sign_up.html', title = 'Sign up')
 
 
 # @app.route('/receive_coordinates', methods=['POST'])
