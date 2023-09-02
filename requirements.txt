@@ -2,5 +2,5 @@ Flask==2.1.1
 geopy==2.2.0
 Flask-SQLAlchemy==2.5.1  # Use a different, compatible version
 Flask-Login==0.5.0
-Flask-Bcrypt==1.0.2
+Flask-Bcrypt==1.0.1
 requests==2.26.0
