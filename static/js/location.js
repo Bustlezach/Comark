@@ -1,3 +1,5 @@
+// location.js
+
 document.addEventListener("DOMContentLoaded", function () {
     const getLocationButton = document.querySelector(".form-btn");
 
@@ -16,22 +18,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
     // Function to send latitude and longitude to the Flask app
     function sendToFlask(latitude, longitude) {
-        fetch("/search", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
+        const data = { latitude: latitude, longitude: longitude }; // Create a JSON object with latitude and longitude
+        const headers = {
+            'Content-type': 'application/json',
+            'Accept': 'application/json'
+        };
+        $.ajax({
+            url: "/search",
+            type: 'POST',
+            dataType: 'json',
+            headers: headers,
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log("Data sent to Flask app:", data);
+                console.log("Response from Flask app:", response);
             },
-            position: JSON.stringify({ latitude, longitude }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Data sent to Flask app:", data);
-        })
-        .catch(error => {
-            console.error("Error sending data to Flask app:", error);
+            error: function (error) {
+                console.error("Error sending data to Flask app:", error);
+            }
         });
     }
 });

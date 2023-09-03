@@ -85,6 +85,7 @@ def loader_user(user_id):
 
 
 """Alternative for GEOLOCATION API"""
+"""
 def get_coords():
     client = Nominatim(user_agent="my_app")
     location = client.geocode("My current location")
@@ -99,6 +100,7 @@ def get_coords():
         results = res.get('results')
         city = results[0]['locations'][0]['adminArea5']
         return city
+"""
 
 
 
@@ -112,6 +114,16 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
+    searched_product = request.form['search_item']
+    if not searched_product:
+        flash("Please provide a search term")
+        return redirect(url_for('index'))
+    
+    products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
+
+    return render_template('index.html', products=products, title='Search')
+
+"""
     data = request.json
     lat = data.get('latitude')
     long = data.get('longitude')
@@ -119,15 +131,27 @@ def search():
     KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
     url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},{long}&includeRoadMetadata=true&includeNearestIntersection=true'
     message = requests.get(url)
+    searched_product = request.form['search_item']
     city = ''
-    if (message.status_code == 200):
+    if message.status_code == 200:
         res = message.json()
         results = res.get('results')
         city = results[0]['locations'][0]['adminArea5']
         return city
+
+    if not city:
+        products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
+        return render_template('index.html', products=products, title='Homepage')
     else:
-        pass
-    searched_product = request.form['search_item']
+        Product.query.filter(
+            or_(
+            Product.product_name.ilike(f'%{searched_product}%'),
+            Product.product_name.ilike(f'%{city}%')
+            )
+            ).all()
+        return render_template('index.html', products=products, title='Search')
+"""    
+        
 
 
 @app.route('/about')
@@ -148,7 +172,7 @@ def sign_up():
     return render_template('sign_up.html')
 
 
-@app.route('/register_user', methods=['POST'])
+@app.route('/register_user', methods=['POST', 'GET'])
 def register_user():
     """
     The form filled in the sign up page is submitted
@@ -204,7 +228,7 @@ def login():
 @app.route('/user/<user_id>')
 def user_page(user_id):
     posts = Product.query.filter_by(user_id=user_id).all()
-    return render_template('user.html', title='User Homepage', posts=posts)
+    return render_template('user.html', title='User-Homepage', posts=posts)
 
 
 @login_required
@@ -216,6 +240,11 @@ def add_post():
         price = request.form['price']
         description = request.form['description']
         img_link = request.form['image_link']
+        if not product_name or \
+        not category or not price or not description or not img_link:
+            flash("Please, fill all fields.")
+            return render_template('add_post.html', title='Create Product')
+        
         product = Product(
             product_name=product_name, category=category, price=price,
             description=description, img_link=img_link
@@ -225,7 +254,7 @@ def add_post():
         db.session.commit()
         flash(f"{product_name} is posted successfully.")
         return redirect(url_for('user_page'))
-    return render_template('add_post.html', title='Create Product')
+    
 
 
 @login_required
@@ -247,6 +276,8 @@ def update(product_id):
         db.session.commit()
         flash(f"{new_product_name} has been updated successfully.")
         return redirect(url_for('user_page'))
+    else:
+        pass
 
 
 
@@ -268,6 +299,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # port = int(os.environ.get('PORT', 5000))
-    # app.run(host='0.0.0.0', port=port)
+    # app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
