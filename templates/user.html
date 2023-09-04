@@ -1,6 +1,6 @@
 {% extends "user_base.html" %}
 {% block content %}
-<div><p><a href="{url_for('add_post')}">Create Product</a></p></div>
+<div><p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p></div>
 
 <table>
     <tr>
@@ -21,8 +21,8 @@
         <td>{{ post.price }}</td>
         <td>{{ post.description }}</td>
         <td>{{ post.img_link }}</td>
-        <td><button onclick="{{url_for('update(post.product_id)')}}">Update</button></td>
-        <td><button onclick="{{url_for('delete(post.product_id)')}}">Delete</button></td>
+        <td><button onclick="{{url_for('update', product_id=post.product_id)}}">Update</button></td>
+        <td><button onclick="{{url_for('delete', product_id=post.product_id)}}">Delete</button></td>
     </tr>
     {% endfor %}
 </table>

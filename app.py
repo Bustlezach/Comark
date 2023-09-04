@@ -1,14 +1,14 @@
 from flask import (
     Flask, render_template, request, flash, redirect, url_for
 )
-
+from sqlalchemy import or_
 from geopy.geocoders import Nominatim
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
-    LoginManager, UserMixin, login_user, login_required, logout_user
+    LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 )
 from flask_bcrypt import Bcrypt
-import requests
+import requests, uuid
 import os
 
 app = Flask(__name__)
@@ -53,8 +53,7 @@ class Product(db.Model, UserMixin):
     table in the database
     """
     __tablename__ = "products"
-    id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.String(255))
+    product_id = db.Column(db.String, primary_key=True)
     product_name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255))
     price = db.Column(db.String(255), nullable=False)
@@ -108,7 +107,7 @@ def get_coords():
 def index():
     """The landing page route"""
     title = 'Homepage'
-    products = Product.query.order_by(Product.id.desc()).all()
+    products = Product.query.order_by(Product.product_id.desc()).all()
     return render_template('index.html', products=products, title=title)
 
 
@@ -116,14 +115,14 @@ def index():
 def search():
     searched_product = request.form['search_item']
     if not searched_product:
-        flash("Please provide a search term")
-        return redirect(url_for('index'))
-    
+            flash("Please provide a search term")
+            return redirect(url_for('index'))
+            
     products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
-
     return render_template('index.html', products=products, title='Search')
+    
 
-"""
+    """
     data = request.json
     lat = data.get('latitude')
     long = data.get('longitude')
@@ -131,7 +130,12 @@ def search():
     KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
     url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},{long}&includeRoadMetadata=true&includeNearestIntersection=true'
     message = requests.get(url)
+
     searched_product = request.form['search_item']
+    if not searched_product:
+        flash("Please provide a search term")
+        return redirect(url_for('index'))
+    
     city = ''
     if message.status_code == 200:
         res = message.json()
@@ -143,14 +147,15 @@ def search():
         products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
         return render_template('index.html', products=products, title='Homepage')
     else:
-        Product.query.filter(
+        products = Product.query.filter(
             or_(
-            Product.product_name.ilike(f'%{searched_product}%'),
-            Product.product_name.ilike(f'%{city}%')
+                Product.product_name.ilike(f'%{searched_product}%'),
+                Product.city.ilike(f'%{city}%')
             )
-            ).all()
+        ).all()
         return render_template('index.html', products=products, title='Search')
-"""    
+    """
+
         
 
 
@@ -232,35 +237,47 @@ def user_page(user_id):
 
 
 @login_required
-@app.route('/user/addPost', methods=['POST'])
-def add_post():
+@app.route('/user/create')
+def create():
+    user_id = current_user.get_id()
+    return render_template('create_product.html', user_id=user_id)
+
+
+@login_required
+@app.route('/user/add_post/<user_id>', methods=['POST'])
+def add_post(user_id):
+    user = User.query.filter_by(user_id=user_id).first()
+    username = user.username
     if request.method == 'POST':
+        product_id = str(uuid.uuid4())
         product_name = request.form['product_name']
         category = request.form['category']
         price = request.form['price']
         description = request.form['description']
         img_link = request.form['image_link']
-        if not product_name or \
-        not category or not price or not description or not img_link:
+        if not product_name or not category \
+        or not price or not description or not img_link:
             flash("Please, fill all fields.")
-            return render_template('add_post.html', title='Create Product')
+            return render_template('create_product.html', title='Create Product')
         
         product = Product(
+            product_id=product_id,
             product_name=product_name, category=category, price=price,
-            description=description, img_link=img_link
+            description=description, img_link=img_link, user_id=user_id, 
+            username=username
             )
         
         db.session.add(product)
         db.session.commit()
         flash(f"{product_name} is posted successfully.")
-        return redirect(url_for('user_page'))
+        return redirect(url_for('user_page', user_id=user_id))
     
 
 
 @login_required
-@app.route('/user/update<int:product_id>', methods=['POST', 'GET'])
+@app.route('/product/<string:product_id>/update', methods=['POST'])
 def update(product_id):
-    product = Product.query.filter_by(product_id=product_id).first()
+    product = Product.query.get(product_id)
     if request.method == 'POST':
         new_product_name = request.form['product_name']
         new_category = request.form['category']
@@ -299,6 +316,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    # app.run(debug=True)
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
+    # port = int(os.environ.get('PORT', 5000))
+    # app.run(host='0.0.0.0', port=port)

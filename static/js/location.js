@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function sendToFlask(latitude, longitude) {
         const data = { latitude: latitude, longitude: longitude }; // Create a JSON object with latitude and longitude
         const headers = {
-            'Content-type': 'application/json',
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
         };
         $.ajax({

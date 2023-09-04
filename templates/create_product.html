@@ -1,9 +1,9 @@
 {% extends "user_base.html" %}
 {% block content %}
-    <h3>Post Product</h3>
+    <h3>Create Product</h3>
 
     <div>
-        <form action="{{url_for('user/addPost')}}" method="post">
+        <form action="{{url_for('add_post', user_id=user_id)}}" method="post">
             <p>
                 <label for="name">Product Name: </label><br />
                 <input type="text" name="product_name" placeholder="Product Name" required/>
@@ -14,7 +14,7 @@
             </p>
             <p>
                 <label for="price">Price: </label><br />
-                <input type="password" placeholder="Price" name="price" required/>
+                <input type="int" placeholder="Price" name="price" required/>
             </p>
             <p>
                 <label for="description">Description: </label><br />
@@ -22,7 +22,7 @@
             </p>
             <p>
                 <label for="image_link">Image URL: </label><br />
-                <input type="text" placeholder="Phone Number" name="phone_number" required/>
+                <input type="text" name="image_link" placeholder="Image Link" required/>
             </p>
             <p>
                 <input type="submit" value="Post Product" />
