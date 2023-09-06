@@ -21,8 +21,9 @@
         <td>{{ post.price }}</td>
         <td>{{ post.description }}</td>
         <td>{{ post.img_link }}</td>
-        <td><button onclick="{{url_for('update', product_id=post.product_id)}}">Update</button></td>
-        <td><button onclick="{{url_for('delete', product_id=post.product_id)}}">Delete</button></td>
+        <td><a href="{{url_for('link_update', product_id=post.product_id)}}">Update</a></td>
+        <td><a href="{{url_for('delete', product_id=post.product_id)}}">Delete</a></td>
+
     </tr>
     {% endfor %}
 </table>

@@ -1,0 +1,37 @@
+{% extends "user_base.html" %}
+{% block content %}
+    <h3>Update Product</h3>
+
+    <div>
+        <p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p>
+    </div>
+
+    <div>
+        <form action="{{url_for('update', product_id=product_id)}}" method="post">
+            <p>
+                <label for="name">Product Name: </label><br />
+                <input type="text" name="product_name" placeholder="Product Name" value="{{ post.product_name }}"/>
+            </p>
+            <p>
+                <label for="category">Category: </label><br />
+                <input type="text" placeholder="Category" name="category" value="{{ post.category }}"" required />
+            </p>
+            <p>
+                <label for="price">Price: </label><br />
+                <input type="int" placeholder="Price" name="price" value="{{ post.price }}"" required/>
+            </p>
+            <p>
+                <label for="description">Description: </label><br />
+                <textarea type="text" placeholder="Description" name="description" value="{{ post.description }}"" required/></textarea>
+            </p>
+            <p>
+                <label for="image_link">Image URL: </label><br />
+                <input type="text" name="image_link" placeholder="Image Link" value="{{ post.img_link }}"" required/>
+            </p>
+            <p>
+                <input type="submit" value="Update Product" />
+            </p>
+
+        </form>
+    </div>
+{% endblock %}

@@ -108,7 +108,8 @@ def index():
     """The landing page route"""
     title = 'Homepage'
     products = Product.query.order_by(Product.product_id.desc()).all()
-    return render_template('index.html', products=products, title=title)
+    return render_template('index.html', products=products, title=title,
+                           cache_id=uuid.uuid4().__str__())
 
 
 @app.route('/search', methods=['POST'])
@@ -122,13 +123,16 @@ def search():
     return render_template('index.html', products=products, title='Search')
     
 
-    """
-    data = request.json
+    
+    data = request.get_json()
     lat = data.get('latitude')
     long = data.get('longitude')
+    # searched_product = data.get('search_query')
+
     #    return lat, long  # Return both latitude and longitude
     KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
-    url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},{long}&includeRoadMetadata=true&includeNearestIntersection=true'
+    url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},\
+            {long}&includeRoadMetadata=true&includeNearestIntersection=true'
     message = requests.get(url)
 
     searched_product = request.form['search_item']
@@ -142,6 +146,8 @@ def search():
         results = res.get('results')
         city = results[0]['locations'][0]['adminArea5']
         return city
+    # return render_template(f"Latitude: {lat}, Longitude: {long}, \
+    #                        Item to searched: {searched_product}, and city: {city}")
 
     if not city:
         products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
@@ -154,7 +160,7 @@ def search():
             )
         ).all()
         return render_template('index.html', products=products, title='Search')
-    """
+    
 
         
 
@@ -275,9 +281,10 @@ def add_post(user_id):
 
 
 @login_required
-@app.route('/product/<string:product_id>/update', methods=['POST'])
+@app.route('/user/update/<string:product_id>', methods=['POST'])
 def update(product_id):
-    product = Product.query.get(product_id)
+    user_id = current_user.get_id()
+    product = Product.query.filter_by(product_id=product_id).first()
     if request.method == 'POST':
         new_product_name = request.form['product_name']
         new_category = request.form['category']
@@ -292,20 +299,29 @@ def update(product_id):
 
         db.session.commit()
         flash(f"{new_product_name} has been updated successfully.")
-        return redirect(url_for('user_page'))
+        return redirect(url_for('user_page', user_id=user_id))
     else:
         pass
+
+
+@login_required
+@app.route('/user/linkupdate/<string:product_id>')
+def link_update(product_id):
+    post = Product.query.filter_by(product_id=product_id).first()
+    return render_template('update.html', product_id=product_id, post=post)
 
 
 
 @login_required
 @app.route('/user/delete/<product_id>')
 def delete(product_id):
+    user_id = current_user.get_id()
     product = Product.query.filter_by(product_id=product_id).first()
-    db.session.delete(product)
-    db.session.commit()
-    flash("Product deleted.")
-    return redirect(url_for('user_page'))
+    if product is not None:
+        db.session.delete(product)
+        db.session.commit()
+        flash("Product deleted.")
+    return redirect(url_for('user_page',  user_id=user_id))
 
 
 @login_required

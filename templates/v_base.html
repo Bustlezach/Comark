@@ -12,6 +12,7 @@
   <!-- Favicons -->
   <link href="{{url_for('static', filename='img/favicon.png')}}" rel="icon">
   <link href="{{url_for('static', filename='img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
@@ -44,11 +45,17 @@
 
       <!-- Search bar -->
       <div class="sr_bar">
-        <form action="/search" method="post">
-          <input class="form-input" type="text" name="search_item" required>
+        <form action="/search" method="post" id="search-form">
+          <input class="search-input" type="text" name="search_item" required>
           <input class="form-btn" type="submit" value="Find Item">
         </form>
       </div>
+
+      <!-- <form id="search-form" action="/search" method="post"> 
+        <input class="search-input" type="text" name="search_item" required>
+        <input class="form-btn" type="submit" value="Find Item">
+      </form> -->
+
 
 
       <!-- Login form -->
@@ -139,16 +146,17 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="{{url_for('static', filename='js/purecounter_vanilla.js')}}"></script>
-  <script src="{{url_for('static', filename='js/aos.js')}}"></script>
-  <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/glightbox.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/isotope.pkgd.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/swiper-bundle.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/noframework.waypoints.js')}}"></script>
+  <script src="{{url_for('static', filename='js/purecounter_vanilla.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/aos.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/glightbox.min.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/isotope.pkgd.min.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/swiper-bundle.min.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/noframework.waypoints.js')}}?={{ cache_id }}"></script>
 
   <!-- Template Main JS File -->
-  <script src="{{url_for('static', filename='js/main.js')}}"></script>
+  <script src="{{url_for('static', filename='js/main.js')}}?={{ cache_id }}"></script>
+  <!-- <script src="{{url_for('static', filename='js/location.js')}}?={{ cache_id }}"></script> -->
 
 </body>
 

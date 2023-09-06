@@ -15,11 +15,11 @@
             </p>
             <p>
                 <label for="password">Password: </label><br />
-                <input type="password" placeholder="Password" name="password" required/>
+                <input type="password" placeholder="Password" id="password" name="password" required/>
             </p>
             <p>
                 <label for="password">Confirm Password: </label><br />
-                <input type="password" placeholder="Confirm Password" required/>
+                <input type="password" placeholder="Confirm Password" id="confirm_password" required/>
             </p>
             <p>
                 <label for="phone_number">Phone Number: </label><br />
@@ -47,6 +47,18 @@
 
         </form>
     </div>
+    <script>
+        // JavaScript to check if passwords match
+        document.getElementById("password").addEventListener("input", function() {
+            const password = document.getElementById("password").value;
+            const confirm_password = document.getElementById("confirm_password").value;
+            if (password !== confirm_password) {
+                document.getElementById("confirm_password").setCustomValidity("Passwords do not match");
+            } else {
+                document.getElementById("confirm_password").setCustomValidity("");
+            }
+        });
+    </script>
 
 {% endblock %}
 
