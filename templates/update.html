@@ -1,35 +1,79 @@
 {% extends "user_base.html" %}
 {% block content %}
-    <h3>Update Product</h3>
+    <h3 class="title">Update Product</h3>
+    <hr>
 
-    <div>
+    <div class="col-lg-4">
         <p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p>
     </div>
 
     <div>
         <form action="{{url_for('update', product_id=product_id)}}" method="post">
             <p>
-                <label for="name">Product Name: </label><br />
-                <input type="text" name="product_name" placeholder="Product Name" value="{{ post.product_name }}"/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="name">Product Name: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" name="product_name" placeholder="Product Name" value="{{ post.product_name }}"/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="category">Category: </label><br />
-                <input type="text" placeholder="Category" name="category" value="{{ post.category }}"" required />
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="category">Category: </label><br />
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Category" name="category" value="{{ post.category }}"" required />
+                    </div>
+                </div>
+                
+                
             </p>
             <p>
-                <label for="price">Price: </label><br />
-                <input type="int" placeholder="Price" name="price" value="{{ post.price }}"" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="price">price: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="int" placeholder="Price" name="price" value="{{ post.price }}"" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="description">Description: </label><br />
-                <textarea type="text" placeholder="Description" name="description" value="{{ post.description }}"" required/></textarea>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="description">Description: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <textarea type="text" placeholder="Description" name="description" value="{{ post.description }}"" required/></textarea>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="image_link">Image URL: </label><br />
-                <input type="text" name="image_link" placeholder="Image Link" value="{{ post.img_link }}"" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="image_link">Image URL: </label><br />
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" name="image_link" placeholder="Image Link" value="{{ post.img_link }}"" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <input type="submit" value="Update Product" />
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-3">
+                        <input type="submit" value="Update Product" />
+                    </div>
+                </div>
+                
             </p>
 
         </form>

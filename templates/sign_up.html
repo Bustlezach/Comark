@@ -1,50 +1,119 @@
 {% extends "r_base.html" %}
 
 {% block content %}
-    <h3>Registration Form</Form></h3>
+    <div class="container">
+        <p class="title">Registration Form</p>
     <hr />
     <div>
         <form action="{{url_for('register_user')}}" method="post">
+            
             <p>
-                <label for="name">Name: </label><br />
-                <input type="text" name="name" placeholder="Name" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="name">Name: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" name="name" placeholder="Name" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="username">Username: </label><br />
-                <input type="text" placeholder="Username" name="username" required />
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="username">Username: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Username" name="username" required />
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="password">Password: </label><br />
-                <input type="password" placeholder="Password" id="password" name="password" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="password">Password: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="password" placeholder="Password" id="password" name="password" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="password">Confirm Password: </label><br />
-                <input type="password" placeholder="Confirm Password" id="confirm_password" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="password">Confirm Password: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="password" placeholder="Confirm Password" id="confirm_password" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="phone_number">Phone Number: </label><br />
-                <input type="tel" placeholder="Phone Number" name="phone_number" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="phone_number">Phone Number: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="tel" placeholder="Phone Number" name="phone_number" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="address">Home Address: </label><br />
-                <input type="text" placeholder="Home Address" name="address" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="address">Home Address: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Home Address" name="address" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="location">Location: </label><br />
-                <input type="text" placeholder="Location" name="location" required/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="location">Location: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Location" name="location" required/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="state">State: </label><br />
-                <input type="text" placeholder="State" name="state"/>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="state">State: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="State" name="state"/>
+                    </div>
+                </div>
             </p>
             <p>
-                <label for="country">Country: </label><br />
-                <input type="text" placeholder="Country" name="country"/>
-            </p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="country">Country: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Country" name="country"/>
+                    </div>
+                </div>
             <p>
-                <input type="submit" value="Register" />
+                <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-3">
+                        <input type="submit" value="Register" />
+                    </div>
+                </div>
+                
             </p>
-
         </form>
     </div>
     <script>
@@ -59,7 +128,7 @@
             }
         });
     </script>
-
+    </div>
 {% endblock %}
 
    

@@ -1,87 +1,60 @@
+
 {% extends "v_base.html" %}
 {% block content %}
+    <div class="container">
+        <p class="title">About Comark - <span>Your Community Marketplace<span></p>
+        <p class="body-content">
+        Comark, a portmanteau of "Community" and "Market," is a groundbreaking web application designed to transform local trading within communities. Our Community Trading Web Application is on a mission to connect buyers and sellers within the same location or community, effectively addressing the challenges faced by individuals seeking to buy or sell items locally.
+        </p>
+        <p class="sub-title">
+        Bridging Communities
+        </p>
+        <p class="body-content">
+        In an era of global connectivity, we believe in the power of local connections. Comark understands the value of neighbors helping neighbors, and our platform aims to bring communities closer together through commerce. We recognize that within every neighborhood, there's a wealth of talent, unique products, and services waiting to be discovered.
+        </p>
+        <br>
+        <p> <h4>Key Objectives</h4>
+        <p class="sub-title">Local Empowerment</p>
+        
+        <p class="body-content">
+        Comark empowers individuals and small businesses by providing them with a dedicated platform to showcase their products and services. We encourage entrepreneurship at the local level, enabling individuals to become micro-entrepreneurs within their communities.
+        </p>
+        <p class="sub-title">Community Engagement</p>
+        
+        <p class="body-content">
+        We foster a sense of belonging and community engagement. Through Comark, users can discover the incredible talent and offerings right in their neighborhood. We believe that strong communities are built on the foundations of trust, support, and collaboration.
+        </p>
+        <p class="sub-title">Convenience and Efficiency</p>
+        
+        <p class="body-content">
+        Comark is all about making life easier for both buyers and sellers. For buyers, it means easy access to products and services within walking distance. For sellers, it means reaching out to a local audience without the complexities of global shipping.
+        </p>
+        <br>
+        <p class="sub-title">Technology at the Core</p>
+        
+        <div  class="body-content">
+            <p>
+            Behind the scenes, Comark leverages cutting-edge technology to deliver a seamless experience:
+            </P>
+            <p><b>Flask: </b> Our web application is powered by Flask, a robust Python web framework.</p>
+            <p><b>SQLAlchemy:  </b>We use SQLAlchemy for efficient database management. </p>
+            <p><b>SQLite:  </b>The reliable SQLite database stores user and product data.</p>
+            <p><b>Jinja2:  </b>Dynamic HTML templates are rendered using Jinja2.</p>
+            <p><b>Flask-Bcrypt:  </b>Passwords are securely hashed and stored with Flask-Bcrypt.</p>
+            <p><b>Flask-Login:  </b>User sessions and authentication are managed with Flask-Login.</p>
+            <p><b>Geolocation API:  </b>We utilize a reverse geocoding API for location-based search functionality.</p>
+            <p><b>HTML, CSS, and JavaScript:  </b>Our frontend is built using HTML, CSS, and JavaScript for a responsive and user-friendly interface.</p>
+        </div>
+        <br>
+        <p class="sub-title">Join Us in Building Stronger Communities</p>
+        <div  class="body-content">
+            Comark envisions a world where local trading is not just a transaction but an opportunity to strengthen community bonds. We invite you to be a part of this vision. Join us today, and let's build stronger, more connected communities, one transaction at a time.
+            </p>
+            <p>
+            Discover, connect, and thrive locally with Comark - Your Community Marketplace!
+            </p>
+        </div>
+    </div>
 
-<div class="container">
-
-<h1>About Comark </h1><hr>
-<div>
-Comark is a revolutionary online marketplace that connects local sellers with buyers, 
-offering a convenient and efficient way to buy and sell products within your community.
-Our platform is designed to bring people together, making it easy to discover unique items, 
-support local businesses, and build stronger local connections.
-</div>
-
-<div>
-<span>Key Features</span><br>
-<h3>Local Product Discovery</h3><br>
-<p>
-Comark allows users to discover a wide range of products available in their local area. Whether you're searching for vintage furniture, handmade crafts, or everyday essentials, you'll find it on our platform. Say goodbye to long shipping times and hello to immediate access to local treasures.
-</p>
-
-<h3>User-Friendly Interface</h3><br>
-<p>
-We prioritize user experience, offering an intuitive and visually appealing interface. Our easy-to-navigate website ensures that both buyers and sellers can effortlessly browse listings, post products, and manage their accounts.
-</p>
-
-<h3>Seamless User Registration</h3><br>
-<p>
-Signing up with Comark is a breeze. As a registered user, you can create your personalized profile, manage your listings, and access advanced features. Our registration process prioritizes data security and user privacy.
-</p>
-
-<h3>Product Listing and Management</h3><br>
-<p>
-Sellers can easily create product listings with essential details, including product name, category, price, description, and location. You have complete control over your listings, allowing you to edit or remove them as needed.
-</p>
-<h3>Location-Based Search</h3><br>
-<p>
-Finding products in your neighborhood has never been easier. Our location-based search functionality enables you to search for items near your current location or any specified area, ensuring you can shop locally.
-</p>
-<h3>User Profiles</h3><br>
-<p>
-Each user has their dedicated profile page, showcasing their listed items. It's a great way to get to know your local sellers and explore their offerings. Buyers can connect with sellers, ask questions, and make purchases with confidence.
-</p>
-<h3>Feedback and Reviews</h3><br>
-<p>
-Transparency and trust are at the core of Comark. Buyers can leave reviews and ratings for sellers, helping build a trusted community of buyers and sellers. Quality and reliability are paramount.
-</p>
-<h3>Secure Transactions</h3><br>
-<p>
-We take the security of your transactions seriously. Comark provides a secure platform for payments, ensuring both buyers and sellers have peace of mind when conducting transactions.
-</p>
-</div>
-
-<div>
-<span>Technology Stack</span>>br>
-Comark is built using a robust technology stack, ensuring a seamless and secure experience for our users. Our technology includes:
-<p>
-<b>Flask</b>: A lightweight and powerful Python web framework that forms the backbone of our application.
-</p>
-<p>
-<b>SQLAlchemy</b>: An Object-Relational Mapping (ORM) library for Python, used for interacting with our database.
-</p>
-<p>
-<b>SQLite</b>: A reliable and efficient database management system that stores user and product data.
-</p>
-<p>
-<b>Jinja2</b>: A template engine for Python, used for rendering dynamic HTML templates.
-</p>
-<p>
-<b>Flask-Bcrypt</b>: A Flask extension for secure password hashing and storage.
-</p>
-<p>
-<b>Flask-Login</b>: A Flask extension for user session management and authentication.
-</p>
-<p>
-<b>Geolocation API</b>: We use a reverse geocoding API to provide location-based search functionality, ensuring users can find products in their vicinity.
-</p>
-<p>
-HTML, CSS, and JavaScript: The frontend is designed using HTML, styled with CSS, and enhanced with JavaScript to deliver a responsive and user-friendly interface.
-</p>
-</div>
-
-Our Vision
-At Comark, our vision is to create vibrant and interconnected local communities by providing a platform that promotes local commerce and fosters relationships between buyers and sellers. We believe that by supporting local businesses and individuals, we can contribute to the growth and prosperity of communities while offering a unique and enjoyable shopping experience.
-
-Join us in revolutionizing local commerce and experience the Comark difference today. Shop local, connect local, and thrive local with Comark - Your Local Marketplace!
-</div>
 {% endblock %}
+    

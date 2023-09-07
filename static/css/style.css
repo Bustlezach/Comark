@@ -2335,3 +2335,20 @@ section {
   color: #2e6b9c;
   background-color: white;
 }
+
+.title {
+  font-size: larger;
+  font-weight: bold;
+  color: #3f8db5;
+  text-align: center;
+}
+
+.body-content {
+  font-size: small;
+}
+
+.sub-title {
+  font-size: medium;
+  color: #2e6b9c;
+}
+
