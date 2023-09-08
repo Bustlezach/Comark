@@ -1,11 +1,11 @@
-Comark Application
-Introduction
+#Comark Application
+##Introduction
 This application was  built in fulfilling ALX SE (Software Engineer) foundation stage, using Python and the Flask web framework. This app  allows users to find  and sell products through an online marketplace where the buyers and sellers locate one another. Users can sign up, log in, create listings for products, and search for products by name or location.
 
-Features
+##Features
 Comark includes the following features:
 
-User Registration and Authentication:
+###User Registration and Authentication:
 
 Users can create an account by providing a username, password, name, phone number, address, location, state, and country.
 Passwords are securely hashed using bcrypt before storing in the database.
@@ -22,22 +22,22 @@ The search functionality allows users to find products by name, category, or loc
 User Profile:
 
 Registered users have a user profile page that displays the products they have listed for sale.
-Product Management:
+###Product Management:
 
 Users can update and delete their own product listings.
 Users can also view and edit the details of their products, including changing the product name, category, price, description, and image link.
 
-About and Team Pages:
+##About and Team Pages:
 The app includes informational pages about the project and its team members.
 
-Usage
-Access the app in your web browser by navigating to http://127.0.0.1:5000/.
+###Usage
+Access the app in your web browser by navigating to (https://comark.onrender.com)
 
 Register a new user account by clicking the "Sign Up" link and filling out the registration form.
 
 Log in with your registered credentials.
 
-Create product listings by clicking the "Create Product" link on your user profile page.
+Create product listings by clicking the **Create Product** link on your user profile page.
 
 Search for products using the search bar on the homepage.
 
@@ -45,7 +45,19 @@ Manage your product listings by visiting your user profile page and clicking the
 
 Log out when you are finished using the app.
 
-Credits
+##Technology Stack:
+
+###HTML/CSS/JavaScript
+###Flask Framework
+###Bootstrap
+###Flask-SQLAlchemy
+###Flask-Login
+###Flask-Bcrypt
+###Geolocation
+###SQLite
+###MapQuest API
+
+##Credits
 Comark  was developed by the project team and is intended for educational purposes. The project team members are:
 
 Happiness Chioma
