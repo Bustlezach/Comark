@@ -127,7 +127,7 @@ def search():
     data = request.get_json()
     lat = data.get('latitude')
     long = data.get('longitude')
-    # searched_product = data.get('search_query')
+    searched_product = data.get('search_query')
 
     #    return lat, long  # Return both latitude and longitude
     KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
@@ -252,6 +252,7 @@ def create():
 @login_required
 @app.route('/user/add_post/<user_id>', methods=['POST'])
 def add_post(user_id):
+    """Add product to the database."""
     user = User.query.filter_by(user_id=user_id).first()
     username = user.username
     if request.method == 'POST':
