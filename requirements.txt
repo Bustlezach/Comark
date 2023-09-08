@@ -5,3 +5,4 @@ Flask-Login
 Flask-Bcrypt
 requests
 Werkzeug
+gunicorn==19.7.1
