@@ -4,6 +4,10 @@
     <div class="container">
         <p class="title">Registration Form</p>
     <hr />
+    {% set error_msg = error %}
+    {% if error_msg %}
+      <p class="error-message">{{ error_msg }}</p>
+    {% endif %}
     <div>
         <form action="{{url_for('register_user')}}" method="post">
             

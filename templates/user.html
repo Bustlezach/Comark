@@ -2,6 +2,13 @@
 {% block content %}
 
 <div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="sent-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div><p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p></div>
 
     <table>

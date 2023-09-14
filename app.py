@@ -2,14 +2,13 @@ from flask import (
     Flask, render_template, request, flash, redirect, url_for
 )
 from sqlalchemy import or_
-from geopy.geocoders import Nominatim
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
     LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 )
 from flask_bcrypt import Bcrypt
-import requests, uuid
-import os
+import requests, uuid, os
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///comark.db"
@@ -114,40 +113,32 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
+    """Make a request to the ipinfo.io API"""
+    response = requests.get("https://ipinfo.io/json")
+    ip_address = response.json()["ip"]
+    response_ip = requests.get(f"https://ipinfo.io/{ip_address}/json")
+    data_ip = response_ip.json()
+
+    # Extract the latitude and longitude
+    latitude, longitude = data_ip["loc"].split(",")
+
+    # Print the latitude and longitude
+    print(f"Latitude: {latitude}, Longitude: {longitude}")
+
+    """Make a request to the ipgeolocation.abstractapi.com API"""
+
+    url = "https://ipgeolocation.abstractapi.com/v1/?api_key=9fabc1053c684dc49448caeb978652ab"
+    resp = requests.request("GET", url)
+    data_json = resp.json()
+    city = data_json.get('city')
+
     searched_product = request.form['search_item']
     if not searched_product:
             flash("Please provide a search term")
             return redirect(url_for('index'))
             
-    products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
-    return render_template('index.html', products=products, title='Search')
-    
-
-    
-    data = request.get_json()
-    lat = data.get('latitude')
-    long = data.get('longitude')
-    searched_product = data.get('search_query')
-
-    #    return lat, long  # Return both latitude and longitude
-    KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
-    url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},\
-            {long}&includeRoadMetadata=true&includeNearestIntersection=true'
-    message = requests.get(url)
-
-    searched_product = request.form['search_item']
-    if not searched_product:
-        flash("Please provide a search term")
-        return redirect(url_for('index'))
-    
-    city = ''
-    if message.status_code == 200:
-        res = message.json()
-        results = res.get('results')
-        city = results[0]['locations'][0]['adminArea5']
-        return city
-    # return render_template(f"Latitude: {lat}, Longitude: {long}, \
-    #                        Item to searched: {searched_product}, and city: {city}")
+    # products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
+    # return render_template('index.html', products=products, title='Search')
 
     if not city:
         products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
@@ -156,13 +147,10 @@ def search():
         products = Product.query.filter(
             or_(
                 Product.product_name.ilike(f'%{searched_product}%'),
-                Product.city.ilike(f'%{city}%')
+                User.location.ilike(f'%{city}%')
             )
         ).all()
         return render_template('index.html', products=products, title='Search')
-    
-
-        
 
 
 @app.route('/about')

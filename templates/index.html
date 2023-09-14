@@ -1,10 +1,26 @@
 {% extends "v_base.html" %}
 {% block content %}
-  
 
   <!-- ======= Services Section ======= -->
+  {{data}}
   <section class="services">
     <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          {% set error_msg = error %}
+          {% if error_msg %}
+            <p class="error-message">{{ error_msg }}</p>
+          {% endif %}
+          
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <p class="sent-message">{{ message }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
@@ -43,15 +59,15 @@
 
     </div>
   </section><!-- End Services Section -->
-  <section>
-    <!-- Video section -->
+  <!-- <section>
+    <!-- Video section --
     <div class="video">
-      <!-- Place the video here -->
+      <!-- Place the video here --
       <video width="100%" height="" controls>
         <source src="{{url_for('static', filename='img/intro.mp4')}}" type='video/mp4'>
       </video>
     </div>
-  </section>
+  </section> -->
 
   <!-- ======= Why Us Section ======= -->
   <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200">
