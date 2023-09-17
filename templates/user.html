@@ -1,49 +1,76 @@
 {% extends "user_base.html" %}
 {% block content %}
 
-
-  <div class="container">
-      {% with messages = get_flashed_messages() %}
-          {% if messages %}
-              {% for message in messages %}
-                  <p class="sent-message">{{ message }}</p>
-              {% endfor %}
-          {% endif %}
-      {% endwith %}
-      <div><p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p></div>
-=======
 <div class="container">
     <div><p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p></div>
 
-
-      <table class="table table-striped">
-          <thead class="text-info">
-            <tr>
-              <th>Product ID</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Description</th>
-              <th>Image Url</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          {% for post in posts %}
-          <tbody>
-              <tr>
-                <td>{{ post.product_id }}</td>
-                <td>{{ post.product_name }}</td>
-                <td>{{ post.category }}</td>
-                <td>{{ post.price }}</td>
-                <td>{{ post.description }}</td>
-                <td>{{ post.img_link }}</td>
-                <td><a href="{{url_for('link_update', product_id=post.product_id)}}">Update</a></td>
-                <td><a href="{{url_for('delete', product_id=post.product_id)}}">Delete</a></td>
-              </tr>
-            </tbody>
-          {% endfor %}
-      </table>
-  </div>
+    <table>
+        <tr>
+            <div class="row">
+                <div class="col-sm-1">
+                    <th class="sub-title">Product ID</th>
+                </div>
+                <div class="col-sm-1">
+                    <th class="sub-title">Name</th>
+                </div>
+                <div class="col-sm-2">
+                    <th class="sub-title">Category</th>
+                </div>
+                <div class="col-sm-1">
+                    <th class="sub-title">Price</th>
+                </div>
+                <div class="col-sm-3">
+                    <th class="sub-title">Description</th>
+                </div>
+                <div class="col-sm-2">
+                    <th class="sub-title">Image Url</th>
+                </div>
+                <div class="col-sm-1">
+                    <th class="sub-title">Update</th>
+                </div>
+                <div class="col-sm-1">
+                    <th class="sub-title">Delete</th>
+                </div>
+            </div>
+        </tr>
+        {% for post in posts %}
+        <tr>
+            <div class="row">
+                <div class="col-sm-1">
+                    <td>{{ post.product_id }}</td>
+        
+                </div>
+                <div class="col-sm-1">
+                    <td>{{ post.product_name }}</td>
+        
+                </div>
+                <div class="col-sm-2">
+                    <td>{{ post.category }}</td>
+        
+                </div>
+                <div class="col-sm-1">
+                    <td>{{ post.price }}</td>
+        
+                </div>
+                <div class="col-sm-3">
+                    <td>{{ post.description }}</td>
+        
+                </div>
+                <div class="col-sm-2">
+                    <td>{{ post.img_link }}</td>
+        
+                </div>
+                <div class="col-sm-1">
+                    <td><a href="{{url_for('link_update', product_id=post.product_id)}}">Update</a></td>
+        
+                </div>
+                <div class="col-sm-1">
+                    <td><a href="{{url_for('delete', product_id=post.product_id)}}">Delete</a></td>
+                </div>
+            </div>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}

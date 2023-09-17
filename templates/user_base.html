@@ -12,19 +12,18 @@
   <!-- Favicons -->
   <link href="{{url_for('static', filename='img/favicon.png')}}" rel="icon">
   <link href="{{url_for('static', filename='img/apple-touch-icon.png')}}" rel="apple-touch-icon">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="{{url_for('static', filename='vendor/animate.css/animate.min.css')}}" rel="stylesheet">
-  <link href="{{url_for('static', filename='vendor/aos/aos.css')}}" rel="stylesheet">
-  <link href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-  <link href="{{url_for('static', filename='vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-  <link href="{{url_for('static', filename='vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
-  <link href="{{url_for('static', filename='vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/animate.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/aos.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/glightbox.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/swiper-bundle.min.css')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
@@ -35,7 +34,7 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center header-transparent">
-    <div class="container-sm d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
         <h1 class="text-light"><a href="{{url_for('index')}}"><span>Comark</span></a></h1>
@@ -53,71 +52,73 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
+
     </div>
   </header><!-- End Header -->
-  
 
   <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex justify-cntent-center align-items-center">
-      <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+  <section id="hero" class="d-flex justify-cntent-center align-items-center">
+    <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
-        <!-- Slide 1 -->
-        <div class="carousel-item active">
-          <div class="carousel-container">
-            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Comark</span></h2>
-            <p class="animate__animated animate__fadeInUp">Your Community Marketplace! We're thrilled 
-              to have you join our vibrant community of local buyers and sellers. 
-              Here, you'll discover a treasure trove of products and services right in your neighborhood. 
-              Whether you're on the hunt for unique finds or looking to share your own offerings, 
-              Comark is your go-to platform for local commerce. Let's connect, discover, and thrive together!"
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Comark</span></h2>
+          <p class="animate__animated animate__fadeInUp">Your Community Marketplace! We're thrilled 
+            to have you join our vibrant community of local buyers and sellers. 
+            Here, you'll discover a treasure trove of products and services right in your neighborhood. 
+            Whether you're on the hunt for unique finds or looking to share your own offerings, 
+            Comark is your go-to platform for local commerce. Let's connect, discover, and thrive together!"
 
-              "Greetings, and welcome to Comark! As an engineer of connections in your community, 
-              we're here to bridge the gap between buyers and sellers. Our platform is designed to
-               make commodities easily discoverable and your products deeply needed. Join us in fostering local 
-               empowerment and strengthening your community bonds. Let's get started!"</p>
-            <!-- <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a> -->
-          </div>
+            "Greetings, and welcome to Comark! As an engineer of connections in your community, 
+            we're here to bridge the gap between buyers and sellers. Our platform is designed to
+             make commodities easily discoverable and your products deeply needed. Join us in fostering local 
+             empowerment and strengthening your community bonds. Let's get started!"</p>
+          <!-- <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a> -->
         </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item">
-          <div class="carousel-container">
-            <h2 class="animate__animated animate__fadeInDown">Find commodities</h2>
-            <p class="animate__animated animate__fadeInUp">At Comark, we believe that every product 
-              has a story to tell and a community to belong to. We are thrilled to have you join our vibrant
-               community of buyers and sellers, where local commerce comes alive, and your offerings find 
-               their appreciative audience.
-
-              Our platform is not just another marketplace; it's a thriving hub of local commerce, 
-              a place where your commodities are not just traded, but cherished. Whether you're here to 
-              discover unique local products or showcase your own, Comark is where it all happens. So, whether 
-              you're here to find that unique item you've been searching for or share your own creations with 
-              your local community, Comark is the place where your commodities will find their place.</p>
-            <!-- <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a> -->
-          </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-item">
-          <div class="carousel-container">
-            <h2 class="animate__animated animate__fadeInDown">Your product is needed</h2>
-            <p class="animate__animated animate__fadeInUp">Someone within your community is definitely in need of that product you intend to sell.</p>
-            <!-- <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a> -->
-          </div>
-        </div>
-
-        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
-        </a>
-
-        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
-        </a>
-
       </div>
-  </section><!-- End Hero -->
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Find commodities</h2>
+          <p class="animate__animated animate__fadeInUp">At Comark, we believe that every product 
+            has a story to tell and a community to belong to. We are thrilled to have you join our vibrant
+             community of buyers and sellers, where local commerce comes alive, and your offerings find 
+             their appreciative audience.
+
+            Our platform is not just another marketplace; it's a thriving hub of local commerce, 
+            a place where your commodities are not just traded, but cherished. Whether you're here to 
+            discover unique local products or showcase your own, Comark is where it all happens. So, whether 
+            you're here to find that unique item you've been searching for or share your own creations with 
+            your local community, Comark is the place where your commodities will find their place.</p>
+          <!-- <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a> -->
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Your product is needed</h2>
+          <p class="animate__animated animate__fadeInUp">Someone within your community is definitely in need of that product you intend to sell.</p>
+          <!-- <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a> -->
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+      </a>
+
+    </div>
+</section><!-- End Hero -->
 
   <main id="main">
+
+    
 
     {% block content %}
     
@@ -139,18 +140,16 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-    
-  <script src="{{url_for('static', filename='vendor/purecounter/purecounter_vanilla.js')}}?={{ cache_id }}"></script>
-  <script src="{{url_for('static', filename='vendor/aos/aos.js')}}?={{ cache_id }}"></script>
-  <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}?={{ cache_id }}"></script>
-  <script src="{{url_for('static', filename='vendor/glightbox/js/glightbox.min.js')}}?={{ cache_id }}"></script>
-  <script src="{{url_for('static', filename='vendor/isotope-layout/isotope.pkgd.min.js')}}?={{ cache_id }}"></script>
-  <script src="{{url_for('static', filename='vendor/swiper/swiper-bundle.min.js')}}?={{ cache_id }}"></script>
-  <script src="{{url_for('static', filename='vendor/waypoints/noframework.waypoints.js')}}?={{ cache_id }}"></script>
+  <script src="{{url_for('static', filename='js/purecounter_vanilla.js')}}"></script>
+  <script src="{{url_for('static', filename='js/aos.js')}}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/glightbox.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/isotope.pkgd.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/swiper-bundle.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/noframework.waypoints.js')}}"></script>
 
   <!-- Template Main JS File -->
-  <script src="{{url_for('static', filename='js/main.js')}}?={{ cache_id }}"></script>
-  <!-- <script src="{{url_for('static', filename='js/location.js')}}?={{ cache_id }}"></script> -->
+  <script src="{{url_for('static', filename='js/main.js')}}"></script>
 
 </body>
 

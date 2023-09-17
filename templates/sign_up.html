@@ -1,38 +1,124 @@
-{% extends "v_base.html" %}
+{% extends "r_base.html" %}
 
 {% block content %}
     <div class="container">
         <p class="title">Registration Form</p>
-        <hr />
-        {% set error_msg = error %}
-        {% if error_msg %}
-            <p class="error-message">{{ error_msg }}</p>
-        {% endif %}
-        <div>
-            <form action="{{ url_for('register_user') }}" method="post">
-                {{ csrf_token() }}
+    <hr />
+    <div>
+        <form action="{{url_for('register_user')}}" method="post">
+            
+            <p>
                 <div class="row">
-                    <div class="col-lg-3">
-                        <label for="name">Name:</label>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="name">Name: </label>
                     </div>
                     <div class="col-lg-5">
-                        <input type="text" name="name" id="name" placeholder="Name" required />
+                        <input type="text" name="name" placeholder="Name" required/>
                     </div>
                 </div>
-                <!-- Repeat similar blocks for other form fields -->
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="username">Username: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Username" name="username" required />
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="password">Password: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="password" placeholder="Password" id="password" name="password" required/>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="password">Confirm Password: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="password" placeholder="Confirm Password" id="confirm_password" required/>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="phone_number">Phone Number: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="tel" placeholder="Phone Number" name="phone_number" required/>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="address">Home Address: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Home Address" name="address" required/>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="location">Location: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Location" name="location" required/>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="state">State: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="State" name="state"/>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <label for="country">Country: </label>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Country" name="country"/>
+                    </div>
+                </div>
+            <p>
                 <div class="row">
                     <div class="col-lg-5"></div>
                     <div class="col-lg-3">
                         <input type="submit" value="Register" />
                     </div>
                 </div>
-            </form>
-        </div>
+                
+            </p>
+        </form>
     </div>
-
     <script>
         // JavaScript to check if passwords match
-        document.getElementById("password").addEventListener("input", function () {
+        document.getElementById("password").addEventListener("input", function() {
             const password = document.getElementById("password").value;
             const confirm_password = document.getElementById("confirm_password").value;
             if (password !== confirm_password) {
@@ -42,4 +128,7 @@
             }
         });
     </script>
+    </div>
 {% endblock %}
+
+   

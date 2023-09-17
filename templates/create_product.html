@@ -4,7 +4,7 @@
     <h3 class="title">Create Product</h3>
     <hr>
     
-        <form action="{{url_for('add_post', user_id=user_id)}}" method="post">
+        <form action="{{url_for('add_post', user_id=user_id)}}" method="post" >
             <p>
                 <div class="row">
                     <div class="col-lg-3"></div>
@@ -58,7 +58,7 @@
                         <label for="image_link">Image URL: </label>
                     </div>
                     <div class="col-lg-5">
-                        <input type="file"" name="image_link" placeholder="Image Link" required/>
+                        <input type="text" name="image_link" placeholder="Image Link" required/>
                     </div>
                 </div>
             </p>

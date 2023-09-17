@@ -2,14 +2,13 @@ from flask import (
     Flask, render_template, request, flash, redirect, url_for
 )
 from sqlalchemy import or_
-from geopy.geocoders import Nominatim
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
     LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 )
 from flask_bcrypt import Bcrypt
-import requests, uuid
-import os
+import requests, uuid, os
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///comark.db"
@@ -82,7 +81,6 @@ def loader_user(user_id):
     return User.query.get(user_id)
 
 
-
 """Alternative for GEOLOCATION API"""
 """
 def get_coords():
@@ -101,8 +99,6 @@ def get_coords():
         return city
 """
 
-
-
 @app.route('/')
 def index():
     """The landing page route"""
@@ -112,42 +108,35 @@ def index():
                            cache_id=uuid.uuid4().__str__())
 
 
+
 @app.route('/search', methods=['POST'])
 def search():
+    """Make a request to the ipinfo.io API"""
+    response = requests.get("https://ipinfo.io/json")
+    ip_address = response.json()["ip"]
+    response_ip = requests.get(f"https://ipinfo.io/{ip_address}/json")
+    data_ip = response_ip.json()
+
+    # Extract the latitude and longitude
+    latitude, longitude = data_ip["loc"].split(",")
+
+    # Print the latitude and longitude
+    print(f"Latitude: {latitude}, Longitude: {longitude}")
+
+    """Make a request to the ipgeolocation.abstractapi.com API"""
+
+    url = "https://ipgeolocation.abstractapi.com/v1/?api_key=9fabc1053c684dc49448caeb978652ab"
+    resp = requests.request("GET", url)
+    data_json = resp.json()
+    city = data_json.get('city')
+
     searched_product = request.form['search_item']
     if not searched_product:
             flash("Please provide a search term")
             return redirect(url_for('index'))
-            
-    products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
-    return render_template('index.html', products=products, title='Search')
-    
 
-    
-    data = request.get_json()
-    lat = data.get('latitude')
-    long = data.get('longitude')
-    searched_product = data.get('search_query')
-
-    #    return lat, long  # Return both latitude and longitude
-    KEY = '7CjHpcOpgKkcKI73yNKxUSyGZdzJKmZn'
-    url = f'https://www.mapquestapi.com/geocoding/v1/reverse?key={KEY}&location={lat},\
-            {long}&includeRoadMetadata=true&includeNearestIntersection=true'
-    message = requests.get(url)
-
-    searched_product = request.form['search_item']
-    if not searched_product:
-        flash("Please provide a search term")
-        return redirect(url_for('index'))
-    
-    city = ''
-    if message.status_code == 200:
-        res = message.json()
-        results = res.get('results')
-        city = results[0]['locations'][0]['adminArea5']
-        return city
-    # return render_template(f"Latitude: {lat}, Longitude: {long}, \
-    #                        Item to searched: {searched_product}, and city: {city}")
+    # products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
+    # return render_template('index.html', products=products, title='Search')
 
     if not city:
         products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
@@ -156,13 +145,10 @@ def search():
         products = Product.query.filter(
             or_(
                 Product.product_name.ilike(f'%{searched_product}%'),
-                Product.city.ilike(f'%{city}%')
+                User.location.ilike(f'%{city}%')
             )
         ).all()
         return render_template('index.html', products=products, title='Search')
-    
-
-        
 
 
 @app.route('/about')
@@ -181,6 +167,7 @@ def team():
 def sign_up():
     """The sign up page route."""
     return render_template('sign_up.html')
+
 
 
 @app.route('/register_user', methods=['POST', 'GET'])
@@ -207,13 +194,12 @@ def register_user():
             phone_number=phone_number, address=address, location=location,
             state=state, country=country
             )
-        
+
         db.session.add(user)
         db.session.commit()
         flash(f"{username}, you have been registered!")
         return redirect(url_for('index'))
     return render_template('sign_up.html', title = 'Sign up')
-
 
 
 @app.route('/login', methods=['POST'])
@@ -234,7 +220,6 @@ def login():
     return redirect(url_for('index'))
 
 
-
 @login_required
 @app.route('/user/<user_id>')
 def user_page(user_id):
@@ -249,12 +234,14 @@ def create():
     return render_template('create_product.html', user_id=user_id)
 
 
+
 @login_required
 @app.route('/user/add_post/<user_id>', methods=['POST'])
 def add_post(user_id):
     """Add product to the database."""
     user = User.query.filter_by(user_id=user_id).first()
     username = user.username
+
     if request.method == 'POST':
         product_id = str(uuid.uuid4())
         product_name = request.form['product_name']
@@ -262,23 +249,23 @@ def add_post(user_id):
         price = request.form['price']
         description = request.form['description']
         img_link = request.form['image_link']
+
         if not product_name or not category \
         or not price or not description or not img_link:
             flash("Please, fill all fields.")
             return render_template('create_product.html', title='Create Product')
-        
+
         product = Product(
             product_id=product_id,
             product_name=product_name, category=category, price=price,
-            description=description, img_link=img_link, user_id=user_id, 
+            description=description, img_link=img_link, user_id=user_id,
             username=username
             )
-        
+
         db.session.add(product)
         db.session.commit()
         flash(f"{product_name} is posted successfully.")
         return redirect(url_for('user_page', user_id=user_id))
-    
 
 
 @login_required
