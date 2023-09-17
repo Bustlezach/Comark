@@ -1,6 +1,7 @@
 {% extends "user_base.html" %}
 {% block content %}
 
+
   <div class="container">
       {% with messages = get_flashed_messages() %}
           {% if messages %}
@@ -10,6 +11,10 @@
           {% endif %}
       {% endwith %}
       <div><p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p></div>
+=======
+<div class="container">
+    <div><p><a href="{{url_for('create', user_id=user_id)}}">Create Product</a></p></div>
+
 
       <table class="table table-striped">
           <thead class="text-info">
