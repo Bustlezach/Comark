@@ -7,7 +7,9 @@ from flask_login import (
     LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 )
 from flask_bcrypt import Bcrypt
-import requests, uuid, os
+import requests
+import uuid
+import os
 
 
 app = Flask(__name__)
@@ -58,9 +60,9 @@ class Product(db.Model, UserMixin):
     price = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     img_link = db.Column(db.String)
-    user_id = db.Column(db.String(255), db.ForeignKey("users.user_id"), primary_key=True)
+    user_id = db.Column(db.String(255), db.ForeignKey(
+        "users.user_id"), primary_key=True)
     username = db.Column(db.String(255), db.ForeignKey("users.username"))
-
 
     def get_id(self):
         return str(self.product_id_id)  # Convert to string as required
@@ -99,6 +101,7 @@ def get_coords():
         return city
 """
 
+
 @app.route('/')
 def index():
     """The landing page route"""
@@ -106,7 +109,6 @@ def index():
     products = Product.query.order_by(Product.product_id.desc()).all()
     return render_template('index.html', products=products, title=title,
                            cache_id=uuid.uuid4().__str__())
-
 
 
 @app.route('/search', methods=['POST'])
@@ -132,14 +134,15 @@ def search():
 
     searched_product = request.form['search_item']
     if not searched_product:
-            flash("Please provide a search term")
-            return redirect(url_for('index'))
+        flash("Please provide a search term")
+        return redirect(url_for('index'))
 
     # products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
     # return render_template('index.html', products=products, title='Search')
 
     if not city:
-        products = Product.query.filter(Product.product_name.ilike(f'%{searched_product}%')).all()
+        products = Product.query.filter(
+            Product.product_name.ilike(f'%{searched_product}%')).all()
         return render_template('index.html', products=products, title='Homepage')
     else:
         products = Product.query.filter(
@@ -169,7 +172,6 @@ def sign_up():
     return render_template('sign_up.html')
 
 
-
 @app.route('/register_user', methods=['POST', 'GET'])
 def register_user():
     """
@@ -187,19 +189,20 @@ def register_user():
         state = request.form['state']
         country = request.form['country']
 
-        password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+        password = bcrypt.generate_password_hash(
+            request.form['password']).decode('utf-8')
 
         user = User(
             username=username, password=password, name=name,
             phone_number=phone_number, address=address, location=location,
             state=state, country=country
-            )
+        )
 
         db.session.add(user)
         db.session.commit()
         flash(f"{username}, you have been registered!")
         return redirect(url_for('index'))
-    return render_template('sign_up.html', title = 'Sign up')
+    return render_template('sign_up.html', title='Sign up')
 
 
 @app.route('/login', methods=['POST'])
@@ -209,12 +212,14 @@ def login():
                 not request.form['password']:
             flash("Fill in your username and password to login.")
         else:
-            user = User.query.filter_by(username=request.form['username']).first()
+            user = User.query.filter_by(
+                username=request.form['username']).first()
             if user and \
                     bcrypt.check_password_hash(user.password, request.form['password']):
                 login_user(user)
                 flash(f"Welcome, {user.name}!")
-                return redirect(url_for('user_page', user_id=user.user_id))  # Use user.user_id
+                # Use user.user_id
+                return redirect(url_for('user_page', user_id=user.user_id))
             else:
                 flash('Invalid username or password')
     return redirect(url_for('index'))
@@ -234,7 +239,6 @@ def create():
     return render_template('create_product.html', user_id=user_id)
 
 
-
 @login_required
 @app.route('/user/add_post/<user_id>', methods=['POST'])
 def add_post(user_id):
@@ -251,7 +255,7 @@ def add_post(user_id):
         img_link = request.form['image_link']
 
         if not product_name or not category \
-        or not price or not description or not img_link:
+                or not price or not description or not img_link:
             flash("Please, fill all fields.")
             return render_template('create_product.html', title='Create Product')
 
@@ -260,7 +264,7 @@ def add_post(user_id):
             product_name=product_name, category=category, price=price,
             description=description, img_link=img_link, user_id=user_id,
             username=username
-            )
+        )
 
         db.session.add(product)
         db.session.commit()
@@ -299,7 +303,6 @@ def link_update(product_id):
     return render_template('update.html', product_id=product_id, post=post)
 
 
-
 @login_required
 @app.route('/user/delete/<product_id>')
 def delete(product_id):
@@ -320,6 +323,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # port = int(os.environ.get('PORT', 5000))
-    # app.run(host='0.0.0.0', port=port)
+    # app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
