@@ -4,6 +4,10 @@
 
 This application was built in fulfilling ALX SE (Software Engineer) foundation stage, using Python and the Flask web framework. This app allows users to find and sell products through an online marketplace where the buyers and sellers locate one another. Users can sign up, log in, create listings for products, and search for products by name or location.
 
+comark.onrender.com
+https://medium.com/@bustlezach001/building-community-bonds-a-journey-in-web-app-development-790517f71bce
+https://www.linkedin.com/in/oluwaseunolorunshola/
+
 ## Features
 
 Comark includes the following features:
@@ -65,6 +69,9 @@ The app includes informational pages about the project and its team members.
 - Geolocation
 - SQLite
 - MapQuest API
+
+## Related project
+jiji
 
 ## Credits
 
